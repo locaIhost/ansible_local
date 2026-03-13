@@ -1,0 +1,8 @@
+---
+- name: Move template ip_forward to /etc/sysctl.d/
+  ansible.builtin.template:
+    src: 88-ipforward.conf.j2
+    dest: /etc/sysctl.d/88-ipforward.conf
+    owner: root
+    group: root
+    mode: '0644'
