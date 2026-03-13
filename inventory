@@ -1,0 +1,5 @@
+[my_remote_gr_hetzner]
+uap ansible_host=*.*.*.*
+
+[local]
+localhost ansible_connection=local
