@@ -1,0 +1,6 @@
+- name: Starting all tasks
+  hosts: all
+  become: no
+  gather_facts: false
+  roles:
+     - linux_ip_forward
