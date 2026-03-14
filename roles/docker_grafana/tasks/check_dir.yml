@@ -1,0 +1,17 @@
+---
+# временно, в prod другой подход!
+- name: Ensure base docker directory structure exists
+  ansible.builtin.file:
+    path: "{{ base_docker_dir }}"
+    state: directory
+    owner: root
+    group: root 
+    mode: "{{ base_docker_dac }}"
+
+- name: Ensure grafana data dir
+  ansible.builtin.file:
+    path: "{{ base_docker_dir }}/grafana"
+    state: directory
+    owner: root
+    group: root
+    mode: "{{ base_docker_dac }}"

@@ -1,0 +1,4 @@
+---
+- import_tasks: check_dir.yml
+- import_tasks: send_grafana_template.yml
+- import_tasks: run_docker_grafana.yml  

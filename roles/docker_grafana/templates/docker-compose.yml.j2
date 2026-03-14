@@ -1,0 +1,21 @@
+services:
+  grafana:
+    image: {{ grafana_name }}/{{ grafana_name }}:{{ grafana_version }}
+    container_name: {{ grafana_name }}
+    ports:
+      - "{{ grafana_port }}"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - {{ grafana_docker_network }}
+
+volumes:
+  grafana-data:
+    driver: local
+
+networks:
+  {{ grafana_docker_network }}:
+    driver: bridge
