@@ -1,7 +1,9 @@
 - name: Starting all tasks
   hosts: all
   become: no
-  gather_facts: false
+  gather_facts: false 
+
   roles:
      - linux_ip_forward
+     - install_base_docker
      - docker_grafana
