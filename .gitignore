@@ -9,6 +9,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .ide/
+.idea/
 .vscode/
 *.swp
 .ansible-lint

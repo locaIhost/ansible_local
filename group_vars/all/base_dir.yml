@@ -1,6 +1,0 @@
----
-# временно, в prod другой подход!
-base_docker_root: /zone
-base_docker_dir: "{{ base_docker_root }}/docker"
-base_docker_vlm: "{{ base_docker_root }}/volumes"
-base_docker_dac: 0600
