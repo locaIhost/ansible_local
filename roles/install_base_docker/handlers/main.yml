@@ -1,0 +1,5 @@
+---
+- name: Restart Docker handler
+  service:
+     name: docker
+     state: restarted

@@ -1,0 +1,11 @@
+---
+- name: Ensure base docker directory structure exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root 
+    mode: "{{ base_docker_dac }}"
+  loop:
+    - "{{ base_docker_dir }}"
+    - "{{ base_docker_vlm }}"

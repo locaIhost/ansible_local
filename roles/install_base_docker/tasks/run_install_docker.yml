@@ -1,0 +1,32 @@
+---
+- name: Grab facts if not already present
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+  when: ansible_os_family is undefined
+
+- name: Include vars for RHEL family
+  ansible.builtin.include_vars: "vars/rhel.yml"
+  when: ansible_os_family == "RedHat"
+
+- name: Add Docker CE repository on RHEL 
+  ansible.builtin.yum_repository:
+    name: "{{ docker_repo_name }}"
+    description: "{{ docker_repo_description }}"
+    baseurl: "{{ docker_repo_url }}"
+    gpgcheck: yes
+    gpgkey: "{{ docker_repo_gpgkey }}"
+    file: "{{ docker_repo_name }}"
+    state: present
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install Docker packages on RHEL
+  ansible.builtin.package:
+    name: "{{ docker_packages }}"
+    state: present
+  notify: Restart Docker handler
+  when: ansible_os_family == "RedHat"
+
+- name: Force start handler for Docker
+  ansible.builtin.meta: flush_handlers
