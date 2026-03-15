@@ -9,7 +9,7 @@
   ansible.builtin.include_vars: "vars/rhel.yml"
   when: ansible_os_family == "RedHat"
 
-- name: Add Docker CE repository on RHEL 
+- name: Add Docker CE repository on RHEL
   ansible.builtin.yum_repository:
     name: "{{ docker_repo_name }}"
     description: "{{ docker_repo_description }}"
@@ -27,6 +27,49 @@
     state: present
   notify: Restart Docker handler
   when: ansible_os_family == "RedHat"
+
+- name: Include vars for Debian family
+  ansible.builtin.include_vars: "vars/debian.yml"
+  when: ansible_os_family == "Debian"
+
+- name: Install requests for Docker on Debian
+  ansible.builtin.package:
+    name: "{{ docker_requests }}"
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Ensure directory for Docker GPG key exists (Debian)
+  ansible.builtin.file:
+    path: "{{ docker_gpg_key_dir }}"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  when: ansible_os_family == "Debian"
+
+- name: Download Docker GPG key (Debian)
+  ansible.builtin.get_url:
+    url: "{{  docker_repo_gpgkey }}"
+    dest: "{{ docker_gpg_key_f }}"
+    mode: '0644'
+    force: false
+  when: ansible_os_family == "Debian"
+
+- name: Add Docker repository (Debian)
+  ansible.builtin.apt_repository:
+    repo: "{{ docker_repo_url_string }}"
+    state: present
+    filename: "{{ docker_repo_name }}"
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Docker packages (Debian)
+  ansible.builtin.package:
+    name: "{{ docker_packages }}"
+    state: present
+  notify: Restart Docker handler
+  when: ansible_os_family == "Debian"
 
 - name: Force start handler for Docker
   ansible.builtin.meta: flush_handlers

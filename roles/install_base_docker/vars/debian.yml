@@ -1,0 +1,20 @@
+docker_repo_name: "docker"
+docker_repo_url: "https://download.docker.com/linux/"
+docker_gpg_key_dir: "/etc/apt/keyrings"
+docker_gpg_key_f: "{{ docker_gpg_key_dir }}/docker.asc"
+docker_repo_gpgkey: "https://download.docker.com/linux/debian/gpg"
+docker_repo_url_string: "deb [arch=amd64 signed-by={{ docker_gpg_key_f }}] {{ docker_repo_url }}{{ ansible_distribution | lower }} {{ ansible_distribution_release | trim }} stable"
+
+docker_requests:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - git
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
