@@ -38,6 +38,11 @@ ansible-playbook side.yml -i inventory -u root --private-key=~/.ssh/u_key -k -l 
 ```shell
 ansible-playbook side.yml -i inventory -u root --private-key=~/.ssh/u_key -k -l uap --ask-vault-password
 ```
+#### Check fact for debug
+```shell
+ansible uap -m setup -i inventory -k -u root
+ansible uap -m setup -a "filter=ansible_os_family" -i inventory -k -u root
+```
 
 ## Note
 1. At the moment I do not use a virtual environment and ssh agent.
