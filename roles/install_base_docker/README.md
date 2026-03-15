@@ -1,0 +1,1 @@
+Adding a simple role as a basis for installing Docker for production is not entirely suitable; based on needs, it is necessary to add new properties.
