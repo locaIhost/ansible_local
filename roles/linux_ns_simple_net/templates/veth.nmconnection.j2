@@ -1,0 +1,15 @@
+[connection]
+id={{ nm_default_int_main }}
+type=veth
+interface-name={{ nm_default_int_main }}
+autoconnect=yes
+
+[veth]
+peer={{ nm_default_int_peer }}
+
+[ipv4]
+method=manual
+address1={{ nm_default_ip_main }}
+
+[ipv6]
+method=ignore

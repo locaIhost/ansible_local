@@ -1,0 +1,12 @@
+---
+- name: Move template veth to "{{ nm_default_sys_con_dir }}"
+  ansible.builtin.template:
+    src: veth.nmconnection.j2
+    dest: "{{ nm_default_full_pathf }}"
+    owner: root
+    group: root
+    mode: "{{ nm_default_file_mode }}"
+  notify: Reload network manager connections
+
+- name: Flush handlers immediately
+  ansible.builtin.meta: flush_handlers

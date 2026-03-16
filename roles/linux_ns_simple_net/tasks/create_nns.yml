@@ -1,0 +1,5 @@
+---
+- name: Create a namespace named {{ ns_name }}
+  community.general.ip_netns:
+    name: "{{ ns_name }}"
+    state: present

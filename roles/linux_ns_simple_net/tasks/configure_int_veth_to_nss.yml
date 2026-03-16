@@ -1,0 +1,59 @@
+---
+- name: Ensure {{ nm_default_int_main }} up
+  community.general.nmcli:
+    conn_name: "{{ nm_default_int_main }}"
+    state: up
+
+- name: Send {{nm_default_int_peer}} to {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ nm_default_int_peer }}"
+      - netns
+      - "{{ ns_name }}"
+  changed_when: true
+
+- name: Assign ip {{ nm_default_int_peer }} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - addr
+      - add
+      - "{{ nm_default_ip_peer }}"
+      - dev
+      - "{{ nm_default_int_peer }}"
+  changed_when: true
+
+- name: Enable {{nm_default_int_peer}} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ nm_default_int_peer }}"
+      - up
+  changed_when: true
+
+- name: Enable {{ lo_lo }} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ lo_lo }}"
+      - up
+  changed_when: true
