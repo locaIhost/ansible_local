@@ -1,0 +1,60 @@
+---
+- name: Check if {{ nm_default_int_main }} exists
+  ansible.builtin.command:
+    argv: [ip, link, show, "{{ nm_default_int_main }}"]
+  register: veth_check
+  failed_when: false
+  changed_when: false
+
+- name: Create veth interface
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - link
+      - add
+      - "{{ nm_default_int_main }}"
+      - type
+      - veth
+      - peer
+      - name
+      - "{{ nm_default_int_peer }}"
+  changed_when: true
+  when: veth_check.rc != 0
+
+- name: Check if IP exists on {{ nm_default_int_main }}
+  ansible.builtin.shell: |
+    ip -o addr show {{ nm_default_int_main }} | grep -w "inet" | awk '{print $4}'
+  register: veth_ip_check
+  failed_when: false
+  changed_when: false
+
+- name: Assign ip {{ nm_default_ip_main }} to {{ nm_default_int_main }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - addr
+      - add
+      - "{{ nm_default_ip_main }}"
+      - dev
+      - "{{ nm_default_int_main }}"
+  changed_when: true
+  when: nm_default_ip_main not in veth_ip_check.stdout
+
+- name: Check if {{ nm_default_int_main }} is up
+  ansible.builtin.shell: |
+    ip link show {{ nm_default_int_main }} | grep -oP 'state \K\w+'
+  register: int_link_state
+  failed_when: false
+  changed_when: false
+
+- name: Enable {{ nm_default_int_main }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - up
+      - dev
+      - "{{ nm_default_int_main }}"
+  changed_when: true
+  when: int_link_state.stdout in 'DOWN'

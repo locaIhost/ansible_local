@@ -1,8 +1,8 @@
 ---
-- name: Ensure {{ nm_default_int_main }} up
-  community.general.nmcli:
-    conn_name: "{{ nm_default_int_main }}"
-    state: up
+#- name: Ensure {{ nm_default_int_main }} up
+#  community.general.nmcli:
+#    conn_name: "{{ nm_default_int_main }}"
+#    state: up
 
 - name: Send {{nm_default_int_peer}} to {{ ns_name }}
   ansible.builtin.command:
