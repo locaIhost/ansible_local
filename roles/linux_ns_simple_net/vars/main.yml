@@ -1,0 +1,16 @@
+# system tools and interface vars (funny)
+ip_ip: ip
+lo_lo: lo
+# ns vars
+ns_name: meta
+ns_virtual_devices_dir: "/sys/devices/virtual/net/"
+# nm vars tasks for send template
+nm_default_name_f: "veth.nmconnection"
+nm_default_sys_con_dir: "/etc/NetworkManager/system-connections/"
+nm_default_full_pathf: "{{ nm_default_sys_con_dir }}{{ nm_default_name_f }}"
+nm_default_file_mode: "0600"
+#nm vars for template (int = interface )
+nm_default_int_main: "veth0"
+nm_default_int_peer: "veth1"
+nm_default_ip_main: "10.77.77.1/24"
+nm_default_ip_peer: "10.77.77.2/24"

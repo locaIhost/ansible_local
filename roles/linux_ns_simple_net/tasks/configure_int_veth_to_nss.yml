@@ -1,0 +1,89 @@
+---
+- name: Check if {{ nm_default_int_peer }} exists
+  ansible.builtin.stat:
+    path: "{{ ns_virtual_devices_dir }}{{ nm_default_int_peer }}"
+  register: veth_peer_stat
+
+- name: Send {{nm_default_int_peer}} to {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ nm_default_int_peer }}"
+      - netns
+      - "{{ ns_name }}"
+  changed_when: true
+  when: veth_peer_stat.stat.exists
+
+- name: Check if IP exists on {{ nm_default_int_peer }}
+  ansible.builtin.shell: |
+    ip netns exec {{ ns_name }} ip -o addr show {{ nm_default_int_peer }} | grep -w "inet" | awk '{print $4}'
+  register: veth_peer_ip_check
+  failed_when: false
+  changed_when: false
+
+- name: Assign ip {{ nm_default_int_peer }} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - addr
+      - add
+      - "{{ nm_default_ip_peer }}"
+      - dev
+      - "{{ nm_default_int_peer }}"
+  changed_when: true
+  when: nm_default_ip_peer not in veth_peer_ip_check.stdout
+
+- name: Check if {{ nm_default_int_peer }} is up
+  ansible.builtin.shell: |
+    ip netns exec {{ ns_name }} ip link show {{ nm_default_int_peer }} | grep -oP 'state \K\w+'
+  register: int_peer_link_state
+  failed_when: false
+  changed_when: false
+
+- name: Enable {{nm_default_int_peer}} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ nm_default_int_peer }}"
+      - up
+  changed_when: true
+  when: int_peer_link_state.stdout in 'DOWN'
+
+- name: Check if {{ lo_lo }} is up
+  ansible.builtin.shell: |
+    ip netns exec {{ ns_name }} ip link show {{ lo_lo }} | grep -oP 'state \K\w+'
+  register: int_lo_link_state
+  failed_when: false
+  changed_when: false
+
+- name: Enable {{ lo_lo }} in {{ ns_name }}
+  ansible.builtin.command:
+    argv:
+      - "{{ ip_ip }}"
+      - netns
+      - exec
+      - "{{ ns_name }}"
+      - "{{ ip_ip }}"
+      - link
+      - set
+      - "{{ lo_lo }}"
+      - up
+  changed_when: true
+  when: int_peer_link_state.stdout in 'DOWN'
+
+  #- name: Ensure {{ nm_default_int_main }} up
+  #  community.general.nmcli:
+  #    conn_name: "{{ nm_default_int_main }}"
+  #    state: up

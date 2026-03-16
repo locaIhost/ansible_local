@@ -1,0 +1,5 @@
+---
+ - import_tasks: create_nns.yml
+ - import_tasks: universal_configure_iproute.yml
+ - import_tasks: configure_int_veth_to_nss.yml
+# - import_tasks: send_nmcli_veth_template.yml
