@@ -1,10 +1,8 @@
 ---
 - name: Check if {{ nm_default_int_main }} exists
-  ansible.builtin.command:
-    argv: [ip, link, show, "{{ nm_default_int_main }}"]
-  register: veth_check
-  failed_when: false
-  changed_when: false
+  ansible.builtin.stat:
+    path: "{{ ns_virtual_devices_dir }}{{ nm_default_int_main }}"
+  register: veth_stat
 
 - name: Create veth interface
   ansible.builtin.command:
@@ -19,7 +17,7 @@
       - name
       - "{{ nm_default_int_peer }}"
   changed_when: true
-  when: veth_check.rc != 0
+  when: not veth_stat.stat.exists
 
 - name: Check if IP exists on {{ nm_default_int_main }}
   ansible.builtin.shell: |

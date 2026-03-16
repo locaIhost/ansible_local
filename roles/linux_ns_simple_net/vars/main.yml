@@ -3,6 +3,7 @@ ip_ip: ip
 lo_lo: lo
 # ns vars
 ns_name: meta
+ns_virtual_devices_dir: "/sys/devices/virtual/net/"
 # nm vars tasks for send template
 nm_default_name_f: "veth.nmconnection"
 nm_default_sys_con_dir: "/etc/NetworkManager/system-connections/"
