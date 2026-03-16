@@ -1,5 +1,16 @@
 ---
+- name: Grab list of all nns
+  ansible.builtin.command:
+    argv:
+    - ip
+    - netns
+    - list
+  register: ns_list
+  changed_when: false
+
 - name: Create a namespace named {{ ns_name }}
   community.general.ip_netns:
     name: "{{ ns_name }}"
     state: present
+  changed_when: true
+  when: ns_name not in ns_list.stdout
