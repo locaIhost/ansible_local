@@ -1,9 +1,4 @@
 ---
-#- name: Ensure {{ nm_default_int_main }} up
-#  community.general.nmcli:
-#    conn_name: "{{ nm_default_int_main }}"
-#    state: up
-
 - name: Check if {{ nm_default_int_peer }} exists
   ansible.builtin.stat:
     path: "{{ ns_virtual_devices_dir }}{{ nm_default_int_peer }}"
@@ -87,3 +82,8 @@
       - up
   changed_when: true
   when: int_peer_link_state.stdout in 'DOWN'
+
+  #- name: Ensure {{ nm_default_int_main }} up
+  #  community.general.nmcli:
+  #    conn_name: "{{ nm_default_int_main }}"
+  #    state: up
