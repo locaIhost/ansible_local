@@ -8,3 +8,4 @@
      - install_base_docker
      - docker_grafana
      - linux_ns_simple_net
+     - linux_hardening_disable_ctrl_alt_del

@@ -1,0 +1,13 @@
+---
+- name: Grab info ctrl-alt-del.target
+  ansible.builtin.stat:
+    path: /etc/systemd/system/ctrl-alt-del.target
+  register: var_target
+
+- name: Mask reboot target
+  ansible.builtin.systemd:
+    name: ctrl-alt-del.target
+    masked: yes
+    force: yes
+    daemon_reload: yes
+  when: var_target.stat.lnk_source | default('') != '/dev/null'

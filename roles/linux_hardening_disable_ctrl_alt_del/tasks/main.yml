@@ -1,0 +1,2 @@
+---
+- import_tasks: mask_systemd_reboot.yml
