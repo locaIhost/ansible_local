@@ -1,0 +1,4 @@
+systemd_manager: Manager
+systemd_reboot_burst_action: none
+systemd_d_local_dir: /etc/systemd/system.conf.d/
+systemd_reboot_burst_endf: reboot-burst-action.conf

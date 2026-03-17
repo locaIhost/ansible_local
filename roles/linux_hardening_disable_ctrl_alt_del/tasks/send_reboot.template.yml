@@ -1,0 +1,7 @@
+- name: Transfer systemd burst reboot template
+  ansible.builtin.template:
+    src: reboot-burst-action.conf.j2
+    dest: "{{ systemd_d_local_dir }}{{ systemd_reboot_burst_endf }}"
+    owner: root
+    group: root
+    mode: '0660'

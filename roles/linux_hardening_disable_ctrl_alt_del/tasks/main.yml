@@ -1,0 +1,4 @@
+---
+- import_tasks: create_systemd_d_dir.yml
+- import_tasks: send_reboot.template.yml
+- import_tasks: mask_systemd_reboot.yml
