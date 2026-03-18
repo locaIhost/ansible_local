@@ -1,0 +1,6 @@
+- name: Run docker-compose telegram proxy
+  community.docker.docker_compose_v2:
+    project_src: "{{ base_docker_dir }}/{{ tgmtp_name_dir }}"
+    files: "{{ tgmtp_docker_endf }}"
+    state: present
+    pull: missing

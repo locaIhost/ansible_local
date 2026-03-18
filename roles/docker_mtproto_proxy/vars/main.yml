@@ -1,0 +1,12 @@
+#tgmtp_name_image: telegrammessenger/proxy
+#tgmtp_name_dir: tgmpt
+#tgmtp_restart_mode: unless-stopped
+#tgmtp_name_pod: mtproto-proxy
+#tgmtp_docker_endf: docker-compose.yml
+#tgmtp_env_endf: .env
+#tgmtp_version: latest
+#tmptp_ext_port: 8443
+#tgmptp_int_port: 443
+#tgmptp_key:
+## As a reminder, you must first run the role without (example tgmptp_tag: ) a tag, and then register your proxy in @MTProxybot
+#tgmptp_tag:

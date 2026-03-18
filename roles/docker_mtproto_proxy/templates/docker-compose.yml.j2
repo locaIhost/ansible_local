@@ -1,0 +1,12 @@
+services:
+  mtproto-proxy:
+    image: {{ tgmtp_name_image }}:{{ tgmtp_version }}
+    container_name: {{ tgmtp_name_pod }}
+    restart: {{ tgmtp_restart_mode }}
+    ports:
+      - "{{ tmptp_ext_port }}:{{ tgmptp_int_port }}"
+    environment:
+      SECRET: "${TG_KEY}"
+{% if tgmptp_tag | default(None) is not none and tgmptp_tag | string | trim | length > 0 %}
+      TAG: "${TG_TAG}"
+{% endif %}

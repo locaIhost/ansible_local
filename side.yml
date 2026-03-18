@@ -9,3 +9,4 @@
      - docker_grafana
      - linux_ns_simple_net
      - linux_hardening_disable_ctrl_alt_del
+     - docker_mtproto_proxy
