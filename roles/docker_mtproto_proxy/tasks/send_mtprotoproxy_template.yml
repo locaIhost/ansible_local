@@ -1,0 +1,16 @@
+---
+- name: Transfer telegram proxy docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ base_docker_dir }}/{{ tgmtp_name_dir }}/{{ tgmtp_docker_endf }}"
+    owner: "{{ base_docker_og }}"
+    group: "{{ base_docker_og }}"
+    mode: '{{ base_docker_dac }}'
+
+- name: Transfer telegram proxy .env
+  ansible.builtin.template:
+    src: env.j2
+    dest: "{{ base_docker_dir }}/{{ tgmtp_name_dir }}/{{ tgmtp_env_endf }}"
+    owner: "{{ base_docker_og }}"
+    group: "{{ base_docker_og }}"
+    mode: '{{ base_docker_dac }}'

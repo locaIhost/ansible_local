@@ -1,0 +1,8 @@
+---
+- name: Ensure telegram proxy data dir
+  ansible.builtin.file:
+    path: "{{ base_docker_dir }}/{{ tgmtp_name_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "{{ base_docker_dac }}"
