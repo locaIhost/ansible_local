@@ -11,3 +11,17 @@
     state: present
     update_cache: yes
   when: ansible_os_family == "Debian"
+
+- name: Check if "{{ pw_pwh_log_f }}" exists
+  ansible.builtin.stat:
+    path: "{{ pw_pwh_dir }}{{ pw_pwh_log_f }}"
+  register: var_pwh
+
+- name: Check or create "{{ pw_pwh_log_f }}" file
+  ansible.builtin.file:
+    dest: "{{ pw_pwh_dir }}{{ pw_pwh_log_f }}"
+    state: touch
+    owner: root
+    group: root
+    mode: '0600'
+  when: not var_pwh.stat.exists

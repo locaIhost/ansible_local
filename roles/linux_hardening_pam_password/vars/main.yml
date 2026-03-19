@@ -1,6 +1,9 @@
 # default vars for security
 pw_default_dir: /etc/security/
 pw_pwq_f: pwquality.conf
+pw_pwh_dir: "{{ pw_default_dir }}"
+pw_pwh_f: pwhistory.conf
+pw_pwh_log_f: opasswd
 # Password policy / Парольная политика
 pw_min: 16
 pw_minclass: 4
@@ -23,3 +26,6 @@ pw_enforcing: 1
 pw_enforcing_for_root: True
 # Integrety hybrid domain auth / Необходимо митишации проблем с домеными пользователями (FreeIPA)
 pw_local_users_only: True
+#### Setting for pw history
+pwh_remember: 5
+pwh_retry: 3

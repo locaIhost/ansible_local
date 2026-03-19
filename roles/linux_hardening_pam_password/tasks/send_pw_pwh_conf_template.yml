@@ -6,3 +6,11 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: Send password history configuration template
+  ansible.builtin.template:
+    src: pwhistory.conf.j2
+    dest: "{{ pw_pwh_dir }}{{ pw_pwh_f }}"
+    owner: root
+    group: root
+    mode: '0644'
