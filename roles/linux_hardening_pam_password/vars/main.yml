@@ -1,5 +1,7 @@
 # default vars for security
+pw_default_pam_dir: /etc/pam.d/
 pw_default_dir: /etc/security/
+pw_default_pam_pass_f:  common-password
 pw_pwq_f: pwquality.conf
 pw_pwh_dir: "{{ pw_default_dir }}"
 pw_pwh_f: pwhistory.conf
@@ -29,3 +31,4 @@ pw_local_users_only: True
 #### Setting for pw history
 pwh_remember: 5
 pwh_retry: 3
+pwh_common_password_pam_line: "password requisite pam_pwhistory.so use_authtok local_users_only enforce_for_root"
