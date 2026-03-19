@@ -1,0 +1,13 @@
+---
+- name: Grab facts if not already present
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+  when: ansible_os_family is undefined
+
+- name: Check or install libpam-pwquality
+  ansible.builtin.apt:
+    name: libpam-pwquality
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"

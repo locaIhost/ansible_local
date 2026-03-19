@@ -1,0 +1,16 @@
+minlen = {{ pw_min }}
+minclass = {{ pw_minclass }}
+difok = {{ pw_difok }}
+dcredit = {{ pw_dcredit }}
+ucredit = {{ pw_ucredit }}
+lcredit = {{ pw_lcredit }}
+ocredit = {{ pw_ocredit }}
+maxrepeat = {{ pw_maxrepeat }}
+maxclassrepeat = {{ pw_maxclassrepeat }}
+dictcheck = {{ pw_dictcheck }}
+usercheck = {{ pw_usercheck }}
+gecoscheck = {{ pw_gecoscheck }}
+usersubstr = {{ pw_usersubstr }}
+enforcing = {{ pw_enforcing }}
+{{ 'enforce_for_root' if pw_enforcing_for_root is true else '' }}
+{{ 'local_users_only' if pw_local_users_only is true else '' }}

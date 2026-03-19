@@ -1,0 +1,8 @@
+---
+- name: Send password policy configuration template
+  ansible.builtin.template:
+    src: pwquality.conf.j2
+    dest: "{{ pw_default_dir }}{{ pw_pwq_f }}"
+    owner: root
+    group: root
+    mode: '0644'
