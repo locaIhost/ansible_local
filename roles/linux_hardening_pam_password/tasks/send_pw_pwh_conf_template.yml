@@ -1,11 +1,12 @@
 ---
-- name: Send password policy configuration template
+- name: Send password policy configuration template (Debian)
   ansible.builtin.template:
     src: pwquality.conf.j2
     dest: "{{ pw_default_dir }}{{ pw_pwq_f }}"
     owner: root
     group: root
     mode: '0644'
+  when: ansible_os_family == "Debian"
 
 - name: Send password history configuration template
   ansible.builtin.template:
@@ -14,3 +15,12 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: Send password policy configuration template (RedHat)
+  ansible.builtin.template:
+    src: pwquality.conf.j2
+    dest: "{{ pw_default_rhel_dir }}{{ pw_pwq_f }}"
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_os_family == "RedHat"
