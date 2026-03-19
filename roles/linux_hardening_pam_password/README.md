@@ -3,3 +3,8 @@
 
 #### Tested on
 1. Debian 13 (trixie)
+
+#### Command for generate (more or less stable, but sometimes there are mismatches with politics)
+```shell
+pwgen -s1 -n -c -y 16
+```
