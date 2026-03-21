@@ -9,3 +9,5 @@
 ```shell
 pwgen -s1 -n -c -y 16
 ```
+#### Note
+1. Why did I choose to configure PAM files directly in Debian? Unfortunately, I encountered some unexpected behavior with the `pam-auth-update` utility, and the “community.general.pamd” module doesn't give me the flexibility I need. I might change my approach in the future.

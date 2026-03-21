@@ -1,3 +1,6 @@
+# pam template
+pam_pwquality_retry: 3
+pam_common_password: common-password
 # default vars for security
 pw_default_rhel_dir: /etc/security/pwquality.conf.d/
 pw_package_rhel:

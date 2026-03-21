@@ -26,15 +26,6 @@
     mode: '0600'
   when: not var_pwh.stat.exists
 
-- name: Ensure pam_pwhistory is present after pwquality (Debian)
-  ansible.builtin.lineinfile:
-    path: "{{ pw_default_pam_dir }}{{ pw_default_pam_pass_f }}"
-    line: "{{ pwh_common_password_pam_line }}"
-    insertafter: '^password\s+requisite\s+pam_pwquality\.so'
-    firstmatch: yes
-    state: present
-  when: ansible_os_family == "Debian"
-
 - name: Create custom authselect profile if missing (RedHat)
   ansible.builtin.command: authselect create-profile {{ pwqh_authselect_name_profile }} --base-on sssd
   args:

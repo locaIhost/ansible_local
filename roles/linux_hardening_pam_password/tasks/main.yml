@@ -1,4 +1,4 @@
 ---
 - import_tasks: pre_tasks.yml
-- import_tasks: send_pw_pwh_conf_template.yml
 - import_tasks: run_install_package_qw.yml
+- import_tasks: send_pw_pwh_conf_template.yml

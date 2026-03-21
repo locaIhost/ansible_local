@@ -16,6 +16,16 @@
     group: root
     mode: '0644'
 
+- name: Send Debian PAM "{{ pam_common_password }}"
+  ansible.builtin.template:
+    src: deb_pam_common-password.j2
+    dest: "{{ pw_default_pam_dir }}{{ pam_common_password }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: ansible_os_family == "Debian"
+
 - name: Send password policy configuration template (RedHat)
   ansible.builtin.template:
     src: pwquality.conf.j2
