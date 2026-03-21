@@ -1,0 +1,11 @@
+dir = {{ faillock_log_d }}{{ faillock_log_f }}
+{{ 'audit' if faillock_audit is true else '#audit' }}
+{{ 'silent' if faillock_audit is true else '#silent' }}
+{{ '#no_log_info' if faillock_audit is true else 'no_log_info' }}
+{{ 'local_users_only' if faillock_local_only is true else '#local_users_only' }}
+deny = {{ faillock_deny_count_login }}
+fail_interval = {{ faillock_fail_interval }}
+unlock_time = {{ faillock_unlock_time }}
+{{ 'even_deny_root' if faillock_root_deny is true else '#even_deny_root' }}
+root_unlock_time = {{ faillock_unlock_root_time }}
+{{ '#admin_group' if faillock_admin_group is true else '#admin_group' }}
