@@ -1,10 +1,10 @@
 ---
-- name: Check or install libpam-pwquality (Debian)
+- name: Check or install libpam-pwquality ({{ ansible_distribution }})
   ansible.builtin.apt:
-    name: libpam-pwquality
+    name: "{{ pw_package_deb_like }}"
     state: present
     update_cache: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: Check or install libpwquality,authselect-libs,authselect (RedHat)
   ansible.builtin.package:

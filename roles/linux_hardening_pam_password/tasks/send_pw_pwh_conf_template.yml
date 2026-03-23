@@ -1,12 +1,12 @@
 ---
-- name: Send password policy configuration template (Debian)
+- name: Send password policy configuration template ({{ ansible_distribution }})
   ansible.builtin.template:
     src: pwquality.conf.j2
     dest: "{{ pw_default_dir }}{{ pw_pwq_f }}"
     owner: root
     group: root
     mode: '0644'
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: Send password history configuration template
   ansible.builtin.template:
@@ -16,7 +16,7 @@
     group: root
     mode: '0644'
 
-- name: Send Debian PAM "{{ pam_common_password }}"
+- name: Send {{ ansible_distribution }} PAM "{{ pam_common_password }}"
   ansible.builtin.template:
     src: deb_pam_common-password.j2
     dest: "{{ pw_default_pam_dir }}{{ pam_common_password }}"
@@ -24,28 +24,28 @@
     group: root
     mode: '0644'
     backup: yes
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
-- name: Send faillock policy configuration template (Debian)
-  ansible.builtin.template:
-    src: faillock.conf.j2
-    dest: "{{ pw_default_dir }}{{ faillock_conf_f }}"
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-  when: ansible_os_family == "Debian"
-
-- name: Send Debian PAM "{{ pam_common_auth }}"
-  ansible.builtin.template:
-    src: deb_pam_common-auth.j2
-    dest: "{{ pw_default_pam_dir }}{{ pam_common_auth }}"
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-  when: ansible_os_family == "Debian"
-
+#- name: Send faillock policy configuration template ({{ ansible_distribution }})
+#  ansible.builtin.template:
+#    src: faillock.conf.j2
+#    dest: "{{ pw_default_dir }}{{ faillock_conf_f }}"
+#    owner: root
+#    group: root
+#    mode: '0644'
+#    backup: yes
+#  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+#
+#- name: Send Debian PAM "{{ pam_common_auth }}"
+#  ansible.builtin.template:
+#    src: deb_pam_common-auth.j2
+#    dest: "{{ pw_default_pam_dir }}{{ pam_common_auth }}"
+#    owner: root
+#    group: root
+#    mode: '0644'
+#    backup: yes
+#  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+#
 - name: Send password policy configuration template (RedHat)
   ansible.builtin.template:
     src: pwquality.conf.j2

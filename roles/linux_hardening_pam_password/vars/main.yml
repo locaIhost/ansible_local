@@ -1,3 +1,6 @@
+pw_package_deb_like:
+  - libpam-pwquality
+  - libpwquality-common
 # pam template
 pam_pwquality_retry: 3
 pam_common_password: common-password
