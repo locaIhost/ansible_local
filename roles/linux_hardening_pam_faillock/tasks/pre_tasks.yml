@@ -1,0 +1,6 @@
+---
+- name: Grab facts if not already present
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+  when: ansible_os_family is undefined

@@ -1,0 +1,18 @@
+# vars for faillock
+pam_common_auth_ubuntu_s: "auth optional pam_cap.so"
+pam_common_auth: common-auth
+pam_common_d: "/etc/pam.d/"
+faillock_pam_conf_d: "/etc/security/"
+faillock_log_f: "faillock"
+faillock_log_d: "/var/log/"
+faillock_conf_f: "faillock.conf"
+faillock_audit: True
+faillock_silent: True
+faillock_no_syslog: True
+faillock_local_only: True
+faillock_root_deny: True
+faillock_deny_count_login: 3
+faillock_fail_interval: 900
+faillock_unlock_time: 1800
+faillock_unlock_root_time: 1800
+faillock_admin_group: True

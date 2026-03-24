@@ -1,0 +1,34 @@
+- name: Send faillock policy configuration template {{ ansible_distribution }}
+  ansible.builtin.template:
+    src: faillock.conf.j2
+    dest: "{{ faillock_pam_conf_d }}{{ faillock_conf_f }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Send Debian PAM {{ pam_common_auth }}
+  ansible.builtin.template:
+    src: deb_pam_common-auth.j2
+    dest: "{{ pam_common_d }}{{ pam_common_auth }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Check with-faillock feature {{ ansible_distribution }}
+  ansible.builtin.lineinfile:
+    path: /etc/authselect/authselect.conf
+    line: "with-faillock"
+    state: present
+  check_mode: yes
+  register: faillock_check
+  failed_when: false
+  when: ansible_os_family == "RedHat"
+
+- name: Enable feature faillock {{ ansible_distribution }}
+  ansible.builtin.command: authselect enable-feature with-faillock
+  when:
+    - ansible_os_family == "RedHat"
+    - faillock_check.changed
