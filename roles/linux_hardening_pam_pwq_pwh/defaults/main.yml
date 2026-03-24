@@ -1,0 +1,56 @@
+# var package for install
+pw_package_rhel:
+  - libpwquality
+  - authselect
+  - authselect-libs
+pw_package_deb_like:
+  - libpam-pwquality
+  - libpwquality-common
+
+# var PAM template
+pam_pwquality_retry: 3
+pam_common_password: common-password
+
+# default vars for file and directory
+pw_default_rhel_dir: /etc/security/pwquality.conf.d/
+pw_default_pam_dir: /etc/pam.d/
+pw_default_dir: /etc/security/
+pw_default_pam_pass_f:  common-password
+pw_pwq_f: pwquality.conf
+pw_pwh_f: pwhistory.conf
+pw_pwh_log_f: opasswd
+
+# var for pw history RHEL
+pwh_common_password_pam_rhel_line: "password    required      pam_pwhistory.so use_authtok"
+pwh_test_authselect_system_auth_f: system-auth
+pwqh_authselect_name_profile: hardening-pwnqh
+pwh_test_authselect_custom_d: "/etc/authselect/custom/{{ pwqh_authselect_name_profile }}/"
+
+# var for PWHISTORY template
+pwh_remember: 5
+pwh_retry: 3
+pw_pwh_dir: "{{ pw_default_dir }}"
+
+# var for PWQUALITY template
+#### Password policy / Парольная политика
+pw_min: 16
+pw_minclass: 4
+pw_difok: 5
+#### Speacial symbol / Специальные символы
+pw_dcredit: -1
+pw_lcredit: -1
+pw_ucredit: -1
+pw_ocredit: -1
+#### Protection against repetitions / Защита от повторений
+pw_maxrepeat: 3
+pw_maxclassrepeat: 3
+pw_dictcheck: 1
+pw_usercheck: 1
+pw_gecoscheck: 1
+pw_usersubstr: 3
+#### Include enforcing / Включение принуждений
+pw_enforcing: 1
+#### U can change True or False :)
+pw_enforcing_for_root: True
+#### Integrety hybrid domain auth / Необходимо для митигации проблем с доменными пользователями (FreeIPA)
+pw_local_users_only: True

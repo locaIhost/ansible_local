@@ -1,0 +1,50 @@
+---
+- name: Check or install libpam-pwquality ({{ ansible_distribution }})
+  ansible.builtin.apt:
+    name: "{{ pw_package_deb_like }}"
+    state: present
+    update_cache: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Check or install libpwquality,authselect-libs,authselect (RedHat)
+  ansible.builtin.package:
+    name: "{{ pw_package_rhel }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Check if "{{ pw_pwh_log_f }}" exists
+  ansible.builtin.stat:
+    path: "{{ pw_pwh_dir }}{{ pw_pwh_log_f }}"
+  register: var_pwh
+
+- name: Check or create "{{ pw_pwh_log_f }}" file
+  ansible.builtin.file:
+    dest: "{{ pw_pwh_dir }}{{ pw_pwh_log_f }}"
+    state: touch
+    owner: root
+    group: root
+    mode: '0600'
+  when: not var_pwh.stat.exists
+
+- name: Create custom authselect profile if missing (RedHat)
+  ansible.builtin.command: authselect create-profile {{ pwqh_authselect_name_profile }} --base-on sssd
+  args:
+    creates: "{{ pwh_test_authselect_custom_d }}"
+  register: create_profile_result
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure pam_pwhistory is present after pwquality (Redhat)
+  ansible.builtin.lineinfile:
+    path: "{{ pwh_test_authselect_custom_d }}{{ pwh_test_authselect_system_auth_f }}"
+    regexp: '^password\s+\w+\s+pam_pwhistory\.so\s+use_authtok'
+    line: "{{ pwh_common_password_pam_rhel_line }}"
+    backrefs: no
+    state: present
+    backup: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Enforce authselect profile (RedHat)
+  ansible.builtin.command: authselect select custom/{{ pwqh_authselect_name_profile }} --force
+  when:
+    - ansible_os_family == "RedHat"
+    - create_profile_result is changed

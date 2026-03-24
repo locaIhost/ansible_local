@@ -1,0 +1,4 @@
+{{ 'enforce_for_root' if pw_enforcing_for_root is true else '' }}
+remember = {{ pwh_remember }}
+retry = {{ pwh_retry }}
+file = {{ pw_pwh_dir }}{{ pw_pwh_log_f }}
