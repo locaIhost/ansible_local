@@ -1,0 +1,19 @@
+- name: Send faillock policy configuration template {{ ansible_distribution }}
+  ansible.builtin.template:
+    src: faillock.conf.j2
+    dest: "{{ faillock_pam_conf_d }}{{ faillock_conf_f }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Send Debian PAM {{ pam_common_auth }}
+  ansible.builtin.template:
+    src: deb_pam_common-auth.j2
+    dest: "{{ pam_common_d }}{{ pam_common_auth }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"

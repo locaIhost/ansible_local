@@ -1,0 +1,3 @@
+---
+- import_tasks: pre_tasks.yml
+- import_tasks: send_faillock_conf_template.yml
