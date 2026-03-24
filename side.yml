@@ -10,4 +10,4 @@
      - linux_ns_simple_net
      - linux_hardening_disable_ctrl_alt_del
      - docker_mtproto_proxy
-     - linux_hardening_pam_password
+     - linux_hardening_pam_pwq_pwh

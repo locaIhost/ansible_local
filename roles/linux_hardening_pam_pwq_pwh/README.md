@@ -4,6 +4,7 @@
 #### Tested on
 1. Debian 13 (trixie)
 2. Rocky Linux 10
+3. Ubuntu 24.04.4-live-server
 
 #### Command for generate (more or less stable, but sometimes there are mismatches with politics)
 ```shell
