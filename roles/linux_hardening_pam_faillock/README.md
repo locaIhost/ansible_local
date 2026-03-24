@@ -4,6 +4,7 @@
 #### Tested on
 1. Debian 13 (trixie)
 2. Ubuntu 24.04.4-live-server
+3. Rocky Linux 10
 
 #### Note
 1. pam_faillock is meant to protect from brute force attacks. It does not mean to protect from configured SSH public key authentication!
