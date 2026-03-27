@@ -1,0 +1,9 @@
+- name: Send login.defs policy configuration template
+  ansible.builtin.template:
+    src: deb_login.defs.j2
+    dest: "{{ login_defs_path_f }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"

@@ -12,3 +12,4 @@
      - docker_mtproto_proxy
      - linux_hardening_pam_pwq_pwh
      - linux_hardening_pam_faillock
+     - linux_hardening_login_defs
