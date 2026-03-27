@@ -1,7 +1,7 @@
 - name: Starting all tasks
   hosts: all
   become: no
-  gather_facts: false 
+  gather_facts: false
 
   roles:
      - linux_ip_forward
@@ -13,3 +13,4 @@
      - linux_hardening_pam_pwq_pwh
      - linux_hardening_pam_faillock
      - linux_hardening_login_defs
+     - linux_install_auditd

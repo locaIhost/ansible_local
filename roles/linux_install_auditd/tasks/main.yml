@@ -1,0 +1,4 @@
+---
+- import_tasks: pre_tasks.yml
+- import_tasks: install_auditd.yml
+- import_tasks: send_fim_template.yml

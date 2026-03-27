@@ -1,0 +1,6 @@
+auditd_packages:
+  - auditd
+  - audispd-plugins
+
+auditd_rule_d: "/etc/audit/rules.d/"
+auditd_rule_fim_f: "10-fim.rules"
