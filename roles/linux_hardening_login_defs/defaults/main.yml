@@ -1,0 +1,13 @@
+login_defs_path_f: "/etc/login.defs"
+login_defs_pass_max_days: "365"
+login_defs_pass_min_days: "1"
+login_defs_pass_warn_days: "14"
+login_defs_default_gecos_change: "none"
+login_defs_default_faillock_deprecated: no
+# reserved
+#login_defs_mail_d: "/var/mail"
+#login_defs_default_umask: "027"
+#login_defs_default_homemode: "0750"
+#login_defs_default_su_path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#login_defs_default_user_path: "/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+#login_defs_faillog_enable: "no"
