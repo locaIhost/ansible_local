@@ -1,0 +1,45 @@
+# Managed by Ansible linux_install_auditd (File integrity monitoring)
+
+# Classical mon
+-w /etc/passwd -p wa -k fim_file
+-w /etc/shadow -p wa -k fim_file
+-w /etc/group -p wa -k fim_file
+-w /etc/gshadow -p wa -k fim_file
+
+# Sudo mon
+-w /etc/sudoers -p wa -k fim_sudo
+-w /etc/sudoers.d/ -p wa -k fim_sudo
+
+# Network and fire mon
+-w /etc/hosts -p wa -k fim_net
+-w /etc/hostname -p wa -k fim_net
+-w /etc/networks -p wa -k fim_net
+-w /etc/network/ -p wa -k fim_net
+-w /etc/netplan/ -p wa -k fim_net
+-w /etc/systemd/network/ -p wa -k fim_net
+-w /etc/ufw/ -p wa -k fim_fire
+-w /etc/iptables/ -p wa -k fim_fire
+-w /etc/nftables/ -p wa -k fim_fire
+
+# Bin mon
+-w /bin/ -p wa -k fim_bin
+-w /sbin/ -p wa -k fim_bin
+-w /usr/bin/ -p wa -k fim_bin
+-w /usr/sbin/ -p wa -k fim_bin
+-w /usr/local/bin/ -p wa -k fim_bin
+-w /usr/local/sbin/ -p wa -k fim_bin
+
+# Persistence mon
+-w /etc/crontab -p wa -k fim_cron
+-w /etc/cron.d/ -p wa -k fim_cron
+-w /etc/cron.daily/ -p wa -k fim_cron
+-w /etc/cron.hourly/ -p wa -k fim_cron
+-w /etc/cron.weekly/ -p wa -k fim_cron
+-w /etc/cron.monthly/ -p wa -k fim_cron
+-w /etc/systemd/system/timers.target.wants/ -p wa -k fim_cron
+-w /etc/anacrontab -p wa -k fim_cron
+
+# LD mon
+-w /etc/ld.so.conf -p wa -k fim_ld
+-w /etc/ld.so.preload -p wa -k fim_ld
+-w /etc/ld.so.conf.d/ -p wa -k fim_ld

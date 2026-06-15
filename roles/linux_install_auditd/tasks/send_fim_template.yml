@@ -1,0 +1,10 @@
+---
+- name: Send default fim rules template ({{ ansible_distribution }})
+  ansible.builtin.template:
+    src: 10-fim.rules.j2
+    dest: "{{ auditd_rule_d }}{{ auditd_rule_fim_f }}"
+    owner: root
+    group: root
+    mode: '0640'
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+  notify: "Restart auditd"
